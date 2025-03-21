@@ -9,14 +9,16 @@ if proxies is not None:
     session.proxies = proxies
 session.verify = False  # 关闭 SSL 验证
 
-def get_current_price(symbol:str):
+async def get_current_price(symbol:str) -> str:
     stock = yf.Ticker(symbol, session=session)
     try:
         data = stock.history(period="1d")
         if not data.empty:
-            return data["Close"].iloc[-1]
+            fval = data["Close"].iloc[-1]
+            return str(fval)
         else:
-            return stock.info.get("currentPrice", "N/A")
+            fval = stock.info.get("currentPrice", "N/A")
+            return str(fval)
     except Exception as e:
         return f"Error: {e}"
 

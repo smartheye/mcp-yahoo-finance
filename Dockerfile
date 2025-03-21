@@ -1,4 +1,3 @@
-##FROM ghcr.io/astral-sh/uv:python3.13-alpine
 FROM python:3.13-alpine
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
@@ -9,5 +8,5 @@ ADD . /app
 WORKDIR /app
 RUN uv sync --frozen
 
-# Presuming there is a `my_app` command provided by the project
-CMD ["uv", "run", "my_app"]
+# 执行命令 uv run main --transport sse
+CMD ["uv", "run", "main", "--transport", "sse"]
